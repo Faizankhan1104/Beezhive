@@ -1,0 +1,291 @@
+/* showJobs.css */
+.job_section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.search-bar {
+  font-family: Helvetica, sans-serif;
+  /* margin-top: 0; */
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+}
+
+.input_search:focus {
+  outline: auto;
+  border: 2px solid rgb(193, 193, 192);
+}
+
+.input_search{
+  background-color: var(--white);
+  margin-top: 7vmax;
+  padding-left: 20px;
+  margin-left: 20px;
+  width: 40rem;
+  border-radius: 15px;
+  border: 2px solid var(--gray);
+  height: 49.5px;
+  margin-bottom: 1rem;
+  /* position: relative; */
+
+}
+
+#pera_job {
+  font-size: 70px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--gray);
+  opacity: 1;
+  /* Fully visible */
+  transition: s ease-in-out;
+}
+
+/* Optionally, you can provide an alternative focus style */
+/* For example, you can add a box-shadow or change the border color */
+
+.search_btn {
+  margin-top: 7vmax;
+  margin-left: -50px;
+  margin-right: 20px;
+  background-color: var();
+  min-width: 7rem;
+  border: 2px solid var(--gray);
+  border-radius: 15px;
+  color: var(--gray);
+  font-weight: 500;
+  height: 3.1rem;
+
+}
+
+.search_btn:hover {
+  background-color: var(--non-photo-blue);
+  color: var(--gray);
+}
+
+
+.container {
+  /* justify-self: center; */
+  display: flex;
+  align-items: flex-start;
+
+
+  /* margin: 20px; */
+  margin-top: 50px;
+  gap: 1.5rem;
+
+}
+
+.sidebar {
+  margin-left: 50px;
+  font-family: Helvetica, sans-serif;
+  width: 18rem;
+  background-color: var(--white);
+  color: var(--black);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  height: 100%;
+
+}
+
+.profile_div {
+  text-align: center;
+}
+
+.profile-picture-container {
+  position: relative;
+}
+
+.profile-picture {
+  margin-top: 10px;
+
+  width: 60px;
+  height: 60px;
+  border: 2px solid var(--black);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.file-input {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.all_filters {
+  margin-top: 20px;
+}
+
+h5 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.skills_select {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.select_skills {
+  display: flex;
+  align-items: center;
+}
+
+.multiselect {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.color {
+  margin-top: 20px;
+}
+
+.exp {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+
+.exp_icon {
+  font-size: 24px;
+  margin-left: 5px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+}
+
+.value-left,
+.value-right {
+  flex: 1;
+  text-align: center;
+}
+
+.value-right {
+  font-weight: bold;
+}
+
+.jobList {
+
+  width: 40em;
+
+  color: var(--black);
+
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+
+}
+
+.lists {
+  display: flex;
+  flex-direction: column;
+
+  align-self: flex-start;
+  background-color: var(--white);
+  margin-bottom: 20px;
+
+  box-shadow: 0px 0px 2px 0 var(--gray);
+  border-radius: 10px;
+  padding: 25px;
+}
+
+h3 {
+
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+p {
+  margin: 0;
+}
+
+.pera {
+  margin-left: -3;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray);
+  line-height: 18px;
+}
+
+.job_details {
+  display: flex;
+
+}
+
+.peraSub {
+  margin-top: 10px;
+  font-family: Helvetica, sans-serif;
+  transform: rotate(0);
+  font-weight: 500;
+  font-size: 0.9rem;
+  /* line-height: 18px; */
+  color: var(--gray);
+  text-align: left !important;
+
+}
+
+span::before {
+  content: "";
+  display: inline-block;
+  width: 1.5px;
+  /* Adjust the width as needed */
+  height: 70%;
+  /* This will make it extend the full height of the <span> */
+  background-color: lightgrey;
+  /* Change the color as needed */
+  margin-left: 8px;
+  margin-right: 8px;
+  /* Adjust the spacing between the <span> and the line */
+}
+
+
+/* Add more styles as needed */
+
+/* Media query for responsiveness */
+@media (max-width: 1024px) {
+  input[type="text"] {
+    width: 30rem;
+  }
+  
+
+
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+
+  }
+
+
+  .sidebar {
+    display: none;
+
+  }
+
+  .jobList {
+    width: 100%;
+  }
+}
