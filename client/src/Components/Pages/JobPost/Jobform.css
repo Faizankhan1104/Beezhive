@@ -1,0 +1,76 @@
+body {
+  background-color: #fff; /* Set the background color as needed */
+  color: #000; /* Set the text color as needed */
+}
+.formMain{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%; 
+    overflow: hidden;
+    left: 20%;
+  }
+  .job-form {
+      width: 50vw;
+      margin: 30px 200px;
+      /* padding: 20px; */
+      /* border: 1px solid #ccc;   */
+      /* border-radius: 5px;   */
+      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+      /* padding: 100px;  */
+    
+    }
+    .heading{
+      text-align: left;
+      margin-bottom: 30px;
+    
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 5px;
+     
+    }
+    .quill-editor {
+      margin-bottom: 30px;
+      margin-top: 20px;
+      height: 250px;
+    }
+    
+    
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+   
+    .form-button {
+      display: inline-block;
+      width: 103%;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    
+    .form-button:hover {
+      background-color: #0056b3;
+    }
+    .p-editor-toolbar{
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+      border-color: #2c64b8;
+      color: #000000;
+      
+  }
+  
+
+  

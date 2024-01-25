@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios'
 import LoginModal from '../Login/Login';
+import { useAuth } from '../../Context/Auth'
 import { useNavigate } from 'react-router-dom';
 import './Register.css'; // Import the CSS for styling
 
@@ -10,19 +11,43 @@ const Registration = ({ isOpen, onClose, onRegister }) => {
     const [email, setEmail] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [password, setPassword] = useState('');
-
+    const [userType, setUserType] = useState('jobseeker');
+    const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
+
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/register', {
+            const response = await axios.post('/api/v1/auth/register', {
+                userType,
                 name,
                 email,
                 password,
             });
-            console.log('Register succefully ');
+            if (response.status === 201) {
+                // Authentication successful, you can handle the response here
+                const userData = response.data.user;
+                console.log('Login successful:', userData);
+                setAuth({
+                      ...auth,
+                      user: response.data.user,
+                      token: response.data.token
+                })
+                localStorage.setItem("auth", JSON.stringify(response.data));
+          
+                // Call the onLogin function passed as a prop to update the user's authentication status in your app
+                onRegister(userData);
+          
+                // Close the modal
+                onClose();
+                
+              } else {
+                // Authentication failed, handle the error
+                console.error('Authentication failed:', response.data.error);
+              }
+
             onClose()
-            navigate('/details'); 
         } catch (error) {
             console.error('Axios error:', error);
             if (error.response) {
@@ -63,6 +88,10 @@ const Registration = ({ isOpen, onClose, onRegister }) => {
                 </div>
                 <h6 onClick={handleLoginClick}>Already have an account ? </h6>
                 <form onSubmit={handleSubmit}>
+                    <div className='User_type'>
+                        <option className={userType === 'jobseeker' ? 'activ' : ""} onClick={(e) => setUserType(e.target.value)} value="jobseeker">Jobseeker</option>
+                        <option className={userType === 'employer' ? 'activ' : ""} onClick={(e) => setUserType(e.target.value)} value="employer">Employer</option>
+                    </div>
                     <div className="group1" id='name_group1'>
                         <label >Name</label>
                         <input

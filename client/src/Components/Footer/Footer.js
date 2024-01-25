@@ -1,8 +1,9 @@
-import React from 'react'
-
+import React from 'react' 
+import { useAuth } from '../../Context/Auth'
 const Footer = () => {
-    return (
-<footer className="footer bg-dark text-light mt-5 p-3 ">
+  const [auth, setAuth] = useAuth();
+  return (
+    <footer className="footer bg-dark text-light mt-5 p-3 ">
       <div className="container">
         <div className="row">
           <div className="col-md-4">
@@ -34,8 +35,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <pre>{JSON.stringify(auth, null, 4)}</pre>
     </footer>
-    )
+  )
 }
 
 export default Footer

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import JobseekerForm from './JobseekerForm';
 import EmployerForm from './EmployerForm';
-import Select from 'react-select';
+import { useAuth } from '../../Context/Auth'
 import './MoreInfo.css'
+import Layout from '../Layout/Layout';
 
 const options = [
     { value: 'jobseeker', label: 'Jobseeker' },
@@ -10,23 +11,15 @@ const options = [
 ];
 
 function MoreInfoForm() {
-    const [userType, setUserType] = useState('jobseeker');
+    const [auth, setAuth] = useAuth();
 
 
     return (
-        <div id='contianer'>
-            <h1>{userType === 'jobseeker' ? 'Jobseeker' : 'Employer'}</h1>
-            <div id='select_type' >
-                <label id='label_select'>I Am </label>
-                {/* <select id='select_state' onChange={(e) => setUserType(e.target.value)}> */}
-                <div className='User_type'>
-                    <option className={userType === 'jobseeker' ? 'activ':""} onClick={(e) => setUserType(e.target.value)} value="jobseeker">Jobseeker</option>
-                    <option className={userType === 'employer' ? 'activ':""} onClick={(e) => setUserType(e.target.value)} value="employer">Employer</option>
-                </div>
-                {/* </select> */}
+        <Layout>
+            <div id='contianer'>
+                {auth.user.userType === 'jobseeker' ? <JobseekerForm /> : <EmployerForm />}
             </div>
-            {userType === 'jobseeker' ? <JobseekerForm /> : <EmployerForm />}
-        </div>
+        </Layout>
     );
 }
 

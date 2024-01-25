@@ -1,18 +1,18 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import './App.css'
-import { Route, BrowserRouter as Router, Routes} from 'react-router-dom'
-import Navbar from './Components/Navbar/Navbar'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Login from './Components/Login/Login'
-import MoreInfoForm from './Components/MoreInfo/MoreInfo'
-// import LoginPopup from './Components/LoginPop/Login'
-import Form from './Components/Pages/Form'
-
-import Home from './Components/Pages/Home/Home'
-import Footer from './Components/Footer/Footer'
+import { useAuth } from './Context/Auth'
 import ShowJobs from './Components/showJobs/ShowJobs'
-// import JobSeekerForm from './Components/RegisterForm/Jobseekerinfo'
-import {isJobSeekerLoggedIn } from './auth/auth';
+import Resume from './Components/User_profile/Resume'
+import Profile from './Components/User_profile/Profile'
+import My_jobs from './Components/User_profile/My_jobs'
+import JobForm from './Components/Pages/JobPost/Jobform'
+import JobDetails from './Components/Pages/JobDetails/Job_Details';
+import UpdateJob from './Components/Pages/UpdateJob/UpdateJob'
+
 import axios from 'axios'
+
 
 axios.defaults.baseURL = "http://localhost:5000";
 
@@ -24,6 +24,7 @@ axios.defaults.withCredentials = true;
 export const App = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [auth, setAuth] = useAuth();
 
   const handleLoginClick = () => {
     setIsModalOpen(true);
@@ -35,27 +36,32 @@ export const App = () => {
 
   return (
     <>
-    <Navbar />
-    {/* <ListsJob/> */}
 
-   
-    <main>
-      
+      {/* <ListsJob/> */}
+
+
+      <main>
+
         <Routes>
-        <Route path='/' element={<ShowJobs/>}/>
-        
-        <Route path='/register' element={<Form />}/>
-        <Route path='/details' element={<MoreInfoForm />}/>
-        {/* <Route path='/employRegister' element={<Register employer = "Employer"/>}/> */}
-        <Route path='/login' element={<Login/>}/>
-        {/* <Route path='/jobseekerinfo/${_id}' element={<JobSeekerForm/>}/> */}
-        
+          <Route path='/' element={<ShowJobs />} />
+          {/* <Route path={`/${auth.user?.userType}/details`} element={""} > */}
+            
+            <Route path={`/${auth.user?.userType}/resume`} element={<Resume/>} />
+            <Route path={`/${auth.user?.userType}/myjobs`} element={<My_jobs/>} />
+            <Route path={`/${auth.user?.userType}/profile`} element={<Profile/>} />
+            <Route path={`/${auth.user?.userType}/jobpost`} element={<JobForm/>} />
+            <Route path="/jobs/:slug" element={<JobDetails />} />
+            <Route path={`/${auth.user?.userType}/job-Update/:slug`} element={<UpdateJob/>} />
+          {/* </Route> */}
+          <Route path='/login' element={<Login />} />
+          {/* <Route path='/jobseekerinfo/${_id}' element={<JobSeekerForm/>}/> */}
+
         </Routes>
 
-    </main>
-    
-    <Footer/>
-    
+      </main>
+
+
+
     </>
   )
 }

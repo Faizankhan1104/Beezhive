@@ -1,16 +1,17 @@
-#navbar{
+#navbar {
     margin-bottom: 0;
     border-bottom: 1px solid #dadada;
-    
+
 }
+
 span {
     margin-top: 5px;
-    color:black;
+    color: black;
     font-weight: 700;
     font-size: larger;
     font-family: helvetica;
     display: inline-block;
-    
+
 }
 
 ul li a {
@@ -22,13 +23,15 @@ ul li a {
 
 button.btn {
     margin-top: 0;
-    color: white;
-    background-color: black;
+    color: #000;
+    background-color:#fff;
     font-size: larger;
+    margin-right: 3rem;
+    
 }
 
 button.btn:hover {
-    background-color: transparent;
+    /* background-color: transparent; */
     border: 2px solid black;
     font-weight: 500;
 
@@ -37,8 +40,8 @@ button.btn:hover {
 .dropdown-menu {
     padding: 5px;
     text-align: start;
+    
 }
-
 .drp {
     /* background-color: red; */
     width: 80%;
@@ -47,10 +50,33 @@ button.btn:hover {
 }
 
 .drp:hover {
-    color:var(--non-photo-blue);
+    color: var(--non-photo-blue);
 
     /* border: 2px solid black; */
     border-radius: 5px;
     background-color: transparent;
 }
 
+img.profile-picture-nav {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+
+}
+
+.dropdown-item.active{
+    background-color: #ffffff;
+    color: #000;
+}
+
+
+.dropdown-item{
+    padding: 0;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+.dropdown-menu{
+    width: 13rem;
+}

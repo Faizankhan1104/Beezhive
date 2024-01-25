@@ -1,0 +1,75 @@
+.job_details_headers {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.1);
+
+}
+
+.job_title {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    line-height: 0.5rem;
+    align-items: baseline;
+
+}
+
+.job_details_headers h3 {
+    padding-left: 1rem;
+    font-size: 1.6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+    justify-content: flex-start;
+
+}
+
+.job_title span {
+    font-size: 1vw;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: rgb(110, 110, 110);
+
+}
+
+.Job__details {
+    display: flex;
+    font-size: 1.3vw;
+    padding-left: 2rem;
+    justify-content: flex-start;
+    align-items: center;
+    color: rgb(110, 110, 110) ;
+    gap: 1rem;
+}
+.apply_button{
+    display:flex ;
+    justify-content: end;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid rgb(182, 182, 182);
+}
+.apply_button button{
+    background-color: rgb(36, 124, 179);
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: 1.3vw;
+    font-weight: 500;
+    width: 8vw;
+    color: white;
+}
+.apply_button button:hover{
+    background-color: white;
+    border: 2px solid rgb(36, 124, 179);
+    color: rgb(36, 124, 179);
+    padding: 0;
+}
+.job_description{
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    font-size: 1.4vw;
+
+}

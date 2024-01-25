@@ -3,18 +3,20 @@ import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css'; // Import the CSS for styling
+import { useAuth } from '../../Context/Auth';
 
  // Make sure to set the root element for accessibility
 
 const Login = ({ isOpen, onClose, onLogin, onSwitchToRegister }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [auth, setAuth] = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
-      const response = await axios.post('/login', {
+      const response = await axios.post('/api/v1/auth/login', {
         email,
         password,
       });
@@ -24,6 +26,12 @@ const Login = ({ isOpen, onClose, onLogin, onSwitchToRegister }) => {
         // Authentication successful, you can handle the response here
         const userData = response.data.user;
         console.log('Login successful:', userData);
+        setAuth({
+              ...auth,
+              user: response.data.user,
+              token: response.data.token
+        })
+        localStorage.setItem("auth", JSON.stringify(response.data));
   
         // Call the onLogin function passed as a prop to update the user's authentication status in your app
         onLogin(userData);
