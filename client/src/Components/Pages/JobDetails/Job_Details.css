@@ -3,6 +3,8 @@
     flex-direction: column;
     border-radius: 20px;
     box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.1);
+    width: 60vw;
+
 
 }
 
@@ -41,6 +43,7 @@
     align-items: center;
     color: rgb(110, 110, 110) ;
     gap: 1rem;
+    
 }
 .apply_button{
     display:flex ;
@@ -71,5 +74,26 @@
     box-shadow: 2px 1px 2px 1px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
     font-size: 1.4vw;
-
+    width: 60vw;
+}
+.applied_button{
+    display:flex ;
+    justify-content: end;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid rgb(182, 182, 182);
+}
+.applied_button button{
+    background-color: rgb(148, 151, 153);
+    padding: 0.5rem;
+    border-radius: 10px;
+    font-size: 1.3vw;
+    font-weight: 500;
+    width: 8vw;
+    color: white;
+}
+.row_1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

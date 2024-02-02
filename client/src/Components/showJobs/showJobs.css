@@ -12,26 +12,41 @@
   justify-content: center;
   text-align: center;
   display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.search-bar {
+  position: absolute;
+  top: 40%;
 }
 
 .input_search:focus {
-  outline: auto;
-  border: 2px solid rgb(193, 193, 192);
+  outline: none;
+  border: 2px solid #e2a277;
+  /* border-right: none; */
+  color: white;
+  font-size: 1.5vw;
 }
 
-.input_search{
-  background-color: var(--white);
+.input_search {
+  background-color: transparent;
   margin-top: 7vmax;
   padding-left: 20px;
   margin-left: 20px;
   width: 40rem;
-  border-radius: 15px;
-  border: 2px solid var(--gray);
-  height: 49.5px;
+  border-radius: 15px ;
+  border: 2px solid #e2a277;
+  /* border-right: none; */
+  /* height: 49.5px; */
   margin-bottom: 1rem;
+  color: white;
+  font-size: 1.5vw;
   /* position: relative; */
 
 }
+
+
 
 #pera_job {
   font-size: 70px;
@@ -47,21 +62,27 @@
 /* For example, you can add a box-shadow or change the border color */
 
 .search_btn {
-  margin-top: 7vmax;
-  margin-left: -50px;
+  margin-top: 6vmax;
+  margin-left: -100px;
   margin-right: 20px;
-  background-color: var();
+  background-color: transparent;
   min-width: 7rem;
-  border: 2px solid var(--gray);
+  /* border-left: 2px solid #e2a277; */
   border-radius: 15px;
   color: var(--gray);
   font-weight: 500;
-  height: 3.1rem;
+  /* height: 3.26rem; */
+  font-size: 1.4vw;
+  
+  
+  
 
 }
 
 .search_btn:hover {
-  background-color: var(--non-photo-blue);
+  font-size: 1.5vw;
+  font-weight: 500;
+  background-color: transparent;
   color: var(--gray);
 }
 
@@ -70,8 +91,6 @@
   /* justify-self: center; */
   display: flex;
   align-items: flex-start;
-
-
   /* margin: 20px; */
   margin-top: 50px;
   gap: 1.5rem;
@@ -87,7 +106,6 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  height: 100%;
 
 }
 
@@ -205,7 +223,7 @@ ul {
   box-shadow: 0px 0px 2px 0 var(--gray);
   border-radius: 10px;
   padding: 25px;
-  
+
 }
 
 h3 {
@@ -244,13 +262,15 @@ p {
 
 
 }
-.apply_job{
+
+.apply_job {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-top: 1px;
 }
-.btn_apply{
+
+.btn_apply {
   width: 6rem;
   padding: 0.4rem;
   margin-top: 10px;
@@ -259,15 +279,27 @@ p {
   color: white;
   border-radius: 3px;
   background-color: rgb(37, 123, 244);
-  transition: transform 0.2s ease; 
-  
-  
+  transition: transform 0.2s ease;
+
+
 }
-.btn_apply:hover{
+
+.btn_apply:hover {
   background-color: white;
   border: 2px solid rgb(37, 123, 244);
-  color:rgb(37, 123, 244);
+  color: rgb(37, 123, 244);
   padding: 0.3rem;
+}
+
+.option {
+  display: flex;
+  font-size: 1.2vw;
+}
+
+.option input[type="checkbox"] {
+  width: 15px;
+  /* Set the desired width */
+  height: 15px;
 }
 
 
@@ -283,9 +315,40 @@ span::before {
   /* Change the color as needed */
   margin-left: 8px;
   margin-right: 8px;
-  
+
 }
 
+.optionListContainer {
+  position: relative !important;
+}
+
+.search-wrapper {
+  padding: 0 !important;
+
+}
+
+#experienceSelector {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  position: relative !important;
+
+}
+
+.group__1 {
+  margin-bottom: 10px;
+}
+
+.super_Seacrh img {
+  width: 100%;
+  height: auto;
+}
+
+.radio_exp_filter{
+  display: flex;
+  flex-direction: column;
+  align-self: baseline;
+  justify-content: center;
+}
 
 
 
@@ -294,7 +357,7 @@ span::before {
   input[type="text"] {
     width: 30rem;
   }
-  
+
 
 
 }

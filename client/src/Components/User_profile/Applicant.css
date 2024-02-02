@@ -1,0 +1,59 @@
+._Myjobs {
+    max-width: 65vw;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+h2,
+h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.jobContainer {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+   
+}
+.jobContainer h5{
+    padding: 1rem;
+    color: rgb(25, 95, 72);
+
+}

@@ -1,47 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../sidebar/Sidebar'
-import './My_jobs.css'
 import axios from 'axios';
+import Sidebar from '../sidebar/Sidebar';
+import { Link } from 'react-router-dom';
+import striptags from 'striptags';
 import { GiMoneyStack } from "react-icons/gi";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineWorkHistory } from "react-icons/md";
-import { Link } from 'react-router-dom';
-import striptags from 'striptags';
-import { useAuth } from '../../Context/Auth';
+import './My_jobs.css'
 
 
-const My_jobs = () => {
-    const [jobData, setJobData] = useState([]);
-    const [filteredJobs, setFilteredJobs] = useState([]);
-    const [auth, setAuth] = useAuth(); // Make sure to import useAuth from your Auth context
+
+const AppliedJobs = ({ userId }) => {
+    const [appliedJobs, setAppliedJobs] = useState([]);
+
 
     useEffect(() => {
-        const fetchJobs = async () => {
+        const fetchAppliedJobs = async () => {
+            console.log(userId)
             try {
-                const response = await axios.get('/api/v1/job/getjobs');
-                setJobData(response.data.jobs);
+                const response = await axios.get(`/api/v1/job/get-my-jobs/${userId}`);
+                setAppliedJobs(response.data.appliedJobs);
             } catch (error) {
-                console.error('Error fetching jobs:', error);
+                console.error('Error fetching applied jobs:', error);
             }
         };
 
-        fetchJobs();
-    }, []);
-
-    useEffect(() => {
-        const filteredJobs = jobData.filter((job) => {
-            return job.employer === auth?.user._id;
-        });
-        setFilteredJobs(filteredJobs);
-    }, [jobData, auth.user._id]);
+        fetchAppliedJobs();
+    }, [userId]);
 
     return (
         <div>
             <Sidebar />
             <div className='_Myjobs'>
                 <div className='jobList'>
-                    <ul>                        
-                        {filteredJobs.map((job) => (
+                    <ul>
+                        {appliedJobs.map((job) => (
                             <li className='lists' key={job.id}>
                                 <h3>{job.jobTitle}</h3>
                                 <p className='pera'>{job.company}</p>
@@ -52,7 +45,7 @@ const My_jobs = () => {
                                 </div>
                                 <div className='peraSub apply_job'>
                                     {striptags(job.description).substring(0, 75) + '...'}
-                                    <Link to={`/jobs/${job.slug}`}>Edit</Link>
+                                    <Link to={`/jobs/${job.slug}`}>Applied</Link>
                                 </div>
                             </li>
                         ))}
@@ -63,4 +56,4 @@ const My_jobs = () => {
     );
 };
 
-export default My_jobs;
+export default AppliedJobs;

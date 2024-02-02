@@ -87,6 +87,7 @@ const JobDetails = () => {
             onClose={() => setShowDeleteModal(false)}
             jobId={job._id}
             onConfirm={handleDelete}
+            api={`/api/v1/job/delete-job/${job._id}`}
           />
           <div className="job_description">
             <div dangerouslySetInnerHTML={{ __html: job.description }} />

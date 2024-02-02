@@ -10,7 +10,9 @@ import My_jobs from './Components/User_profile/My_jobs'
 import JobForm from './Components/Pages/JobPost/Jobform'
 import JobDetails from './Components/Pages/JobDetails/Job_Details';
 import UpdateJob from './Components/Pages/UpdateJob/UpdateJob'
-
+import AppliedJobs from './Components/User_profile/Appliedjob'
+import Applicants from './Components/User_profile/Applicants'
+import PrivateJobseekerRoute from './Components/Routes/PrivateJobseekerRoute'
 import axios from 'axios'
 
 
@@ -45,13 +47,18 @@ export const App = () => {
         <Routes>
           <Route path='/' element={<ShowJobs />} />
           {/* <Route path={`/${auth.user?.userType}/details`} element={""} > */}
-            
-            <Route path={`/${auth.user?.userType}/resume`} element={<Resume/>} />
-            <Route path={`/${auth.user?.userType}/myjobs`} element={<My_jobs/>} />
-            <Route path={`/${auth.user?.userType}/profile`} element={<Profile/>} />
-            <Route path={`/${auth.user?.userType}/jobpost`} element={<JobForm/>} />
-            <Route path="/jobs/:slug" element={<JobDetails />} />
-            <Route path={`/${auth.user?.userType}/job-Update/:slug`} element={<UpdateJob/>} />
+
+          <Route
+            path={`/${auth.user?.userType}/resume`}
+            element={<PrivateJobseekerRoute element={<Resume />} />}
+          />
+          <Route path={`/${auth.user?.userType}/myjobs`} element={<My_jobs />} />
+          <Route path={`/${auth.user?.userType}/profile`} element={<Profile />} />
+          <Route path={`/${auth.user?.userType}/jobpost`} element={<JobForm />} />
+          <Route path={`/${auth.user?.userType}/job-applicants`} element={<Applicants />} />
+          <Route path={`/${auth.user?.userType}/my-applied-Job`} element={<AppliedJobs userId={auth.user?._id} />} />
+          <Route path="/jobs/:slug" element={<JobDetails />} />
+          <Route path={`/${auth.user?.userType}/job-Update/:slug`} element={<UpdateJob />} />
           {/* </Route> */}
           <Route path='/login' element={<Login />} />
           {/* <Route path='/jobseekerinfo/${_id}' element={<JobSeekerForm/>}/> */}

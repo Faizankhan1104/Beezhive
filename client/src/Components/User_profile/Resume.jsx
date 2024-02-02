@@ -1,18 +1,16 @@
-// Resume.js
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../sidebar/Sidebar';
-import Navbar from '../Navbar/Navbar';
 import axios from 'axios';
 import { useAuth } from '../../Context/Auth';
 
 const Resume = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [auth, setAuth] = useAuth();
-  const [resumes, setResumes] = useState([]);
+  const [auth] = useAuth();
+  const [resume, setResume] = useState(null);
 
   const handleFileChange = (e) => {
     const files = e.target.files;
-    setSelectedFiles([...selectedFiles, ...files]);
+    setSelectedFiles([...files]);
   };
 
   const handleUpload = async () => {
@@ -38,7 +36,7 @@ const Resume = () => {
         const updatedUserData = await auth.getUserData();
 
         // Update the auth context with the new user data
-        setAuth({ ...auth, user: updatedUserData });
+        auth.setUser(updatedUserData);
 
         // Optionally, you can reset the selectedFiles state after the upload
         setSelectedFiles([]);
@@ -47,6 +45,53 @@ const Resume = () => {
       }
     } catch (error) {
       console.error('Error uploading files:', error);
+    }
+  };
+
+  const handleDownload = async (fileName) => {
+    try {
+      const response = await axios.get(`/api/v1/auth/download/${fileName}`, {
+        responseType: 'blob', // Specify the response type as 'blob'
+        headers: {
+          'Authorization': `Bearer ${auth.token}`,
+        },
+      });
+
+      // Create a Blob from the response data
+      const blob = new Blob([response.data], { type: response.headers['content-type'] });
+
+      // Create a link element and trigger a download
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+    }
+  };
+
+  const handleView = async (fileName) => {
+    const token = auth && auth.token;
+
+    try {
+      // Get the file URL
+      const response = await axios.get(`/api/v1/auth/download/${fileName}`, {
+        responseType: 'blob', // Specify the response type as 'blob'
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      // Create a Blob from the response data
+      const blob = new Blob([response.data], { type: response.headers['content-type'] });
+
+      // Create a URL for the Blob
+      const fileURL = window.URL.createObjectURL(blob);
+
+      // Open the file in a new tab
+      window.open(fileURL, '_blank');
+    } catch (error) {
+      console.error('Error viewing resume:', error);
     }
   };
 
@@ -59,7 +104,7 @@ const Resume = () => {
           },
         });
 
-        setResumes(response.data.resumes);
+        setResume(response.data.resume);
       } catch (error) {
         console.error('Error fetching resumes:', error);
       }
@@ -70,30 +115,42 @@ const Resume = () => {
 
   return (
     <div>
-      <Navbar />
+      <Sidebar />
       <div className='_Myjobs'>
-        <Sidebar />
         <div className='resume__'>
           <h3 className='resume_heading'>Resume</h3>
-          <ul>
-            {resumes.map((resume, index) => (
-              <li key={index}>{resume.fileName}</li>
-            ))}
-          </ul>
-          <p>Resume is the most important document recruiters look for. Recruiters generally do not look at profiles without resumes.</p>
+          {resume ? (
+            <div className='down_button'>
+              <h5>{resume.fileName}</h5>
+              <div down_button_div>
+               {resume.fileName ?(<><button onClick={() => handleView(resume.fileName)}>View</button>
+              <button onClick={() => handleDownload(resume.fileName)}>Download</button></>):(<></>)}               
+              </div>
+            </div>
+          ) : (
+            <p>No resume available</p>
+          )}
+          <p>
+            Resume is the most important document recruiters look for.
+            Recruiters generally do not look at profiles without resumes.
+          </p>
           <div className='resume_upload'>
-            <label htmlFor="file" className='label_resume' >Upload Resumes</label>
-            <p>Supported Formats: doc, docx, rtf, pdf, upto 2 MB</p>
+            <label htmlFor='file' className='label_resume'>
+              Upload Resumes
+            </label>
+            <p>Supported Formats: doc, docx, rtf, pdf, up to 2 MB</p>
             <input
-              type="file"
+              type='file'
               id='file'
               name='resume'
-              multiple
+              multiple={false}
               className='upload_resume'
-              onChange={handleFileChange} />
+              onChange={handleFileChange}
+            />
           </div>
-
-          <button className='resume_btn_add' onClick={handleUpload}>Add</button>
+          <button className='resume_btn_add' onClick={handleUpload}>
+            Add
+          </button>
         </div>
       </div>
     </div>

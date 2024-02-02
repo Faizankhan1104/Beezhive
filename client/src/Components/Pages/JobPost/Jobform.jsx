@@ -175,7 +175,7 @@ const JobForm = () => {
                                 required />
                         </div>
                         <div>
-                            <label className='form-label'>Employment Type</label>
+                            <label className='form-label'>Work mode</label>
                             <input
                                 placeholder='Remote'
                                 type="text"

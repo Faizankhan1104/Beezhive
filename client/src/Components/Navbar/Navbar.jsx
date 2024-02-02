@@ -48,13 +48,11 @@ const Navbar = ({ userName }) => {
     setIsModalOpen(true);
     setIsRegistrationModalOpen(false);
   }
+  
   const handleLogin = (email, password) => {
-    // Implement your login logic here
-    console.log(`Login attempted with email: ${email} and password: ${password}`);
-
-    // Close the modal
     handleModalClose();
   };
+
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -65,8 +63,6 @@ const Navbar = ({ userName }) => {
   }
   const handleRegistration = (name, email, password) => {
     // Implement your registration logic here
-    console.log(`Registration attempted with name: ${name}, email: ${email}, and password: ${password}`);
-
     // Close the modal
     handleModalClose();
   };
@@ -180,11 +176,11 @@ const Navbar = ({ userName }) => {
                 </button>
                 <ul class="dropdown-menu ">
                   <li><NavLink class="dropdown-item " to={`/${auth.user?.userType}/profile`}>Hii {auth?.user.name}</NavLink></li>
-                  {auth?.user.userType === 'employer' ?(<li><NavLink class="dropdown-item" to={`/${auth.user?.userType}/myjobs`}>Posted Jobs</NavLink></li>):(<li><NavLink class="dropdown-item" to={`/${auth.user?.userType}/myjobs`}>My Jobs</NavLink></li>)}
+                  {auth?.user.userType === 'employer' ?(<li><NavLink class="dropdown-item" to={`/${auth.user?.userType}/myjobs`}>Posted Jobs</NavLink></li>):(<li><NavLink class="dropdown-item" to={`/${auth.user?.userType}/my-applied-Job`}>My Jobs</NavLink></li>)}
                   
                   <li>
                     {auth.user?.userType === 'jobseeker' ? (
-                      <NavLink class="dropdown-item" to="#">Upload Resume</NavLink>
+                      <NavLink class="dropdown-item" to={`/${auth.user?.userType}/resume`}>Upload Resume</NavLink>
                     ) : (
                       <NavLink class="dropdown-item" to={`/${auth.user?.userType}/jobpost`}>Post a Free Job</NavLink>
                     )}

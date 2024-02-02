@@ -4,16 +4,16 @@ import './DeleteConfarmation.css'; // Import the CSS for styling
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-const DeleteConfarmation = ({ isOpen, onClose, onDelete, jobId }) => {
+const DeleteConfarmation = ({ isOpen, onClose, onDelete, jobId, api }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (jobId) {
-                console.log(jobId)
-                await axios.delete(`/api/v1/job/delete-job/${jobId}`);
+            if (api) {
+                // console.log(jobId)
+                await axios.delete(api);
                 console.log('Job deleted!');
                 navigate(-1);
             }
@@ -38,7 +38,7 @@ const DeleteConfarmation = ({ isOpen, onClose, onDelete, jobId }) => {
                     <h4>Delete Confirmation</h4>
                     <button className="close" onClick={onClose}>X</button>
                 </div>
-                <p>Are you sure you want to delete this Job?</p>
+                <p>Are you sure you want to delete?</p>
                 <div className="button-group">
                     <button className='cancel-delete' onClick={onClose}>Cancel</button>
                     <button className='confirm-delete' onClick={handleSubmit}>Yes, Delete</button>
