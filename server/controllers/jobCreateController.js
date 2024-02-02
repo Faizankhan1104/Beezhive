@@ -4,9 +4,11 @@ const Job = require('../models/jobForm');
 const createDOMPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
 const window = new JSDOM('').window;
+const UserModel = require('../models/UserModel')
 const DOMPurify = createDOMPurify(window);
 const axios = require('axios');
 const striptags = require('striptags');
+const jobApplication = require('../models/application')
 
 // dotenv.config();
 
@@ -116,26 +118,9 @@ module.exports.getSingleJob = async (req, res) => {
     }
 };
 
-// get photo
-// export const productPhotoController = async (req, res) => {
-//     try {
-//         const product = await productModel.findById(req.params.pid).select("photo");
-//         if (product.photo.data) {
-//             res.set("Content-type", product.photo.contentType);
-//             return res.status(200).send(product.photo.data);
-//         }
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send({
-//             success: false,
-//             message: "Erorr while getting photo",
-//             error,
-//         });
-//     }
-// };
-
 //delete controller
 module.exports.deletejobController = async (req, res) => {
+    console.log(req.params._id)
     try {
         await Job.findByIdAndDelete(req.params._id);
         res.status(200).send({
@@ -173,7 +158,7 @@ module.exports.updatejobController = async (req, res) => {
             case !experience:
                 return res.status(500).send({ error: "Quantity is Required" });
         }
-        
+
         const job = await Job.findByIdAndUpdate(
             req.params._id,
             {
@@ -206,6 +191,123 @@ module.exports.updatejobController = async (req, res) => {
         });
     }
 };
+
+module.exports.jobApplication = async (req, res) => {
+    try {
+        const jobId = req.params._id;
+        const userId = req.user._id; // Assuming you have user information in req.user
+        console.log(jobId);
+        console.log(userId);
+
+        // Check if userId and jobId are available
+        if (!userId || !jobId) {
+            return res.status(400).json({ error: 'Invalid user or job ID.' });
+        }
+
+        const existingApplication = await jobApplication.findOne({ jobSeekerId: userId, jobId });
+
+        if (existingApplication) {
+            return res.status(400).json({ error: 'You have already applied for this job.' });
+        }
+
+        const newApplication = new jobApplication({
+            jobSeekerId: userId,
+            jobId,
+        });
+
+        await newApplication.save();
+
+        return res.status(201).json({ message: 'Job application submitted successfully.' });
+    } catch (error) {
+        console.error('Error applying for job:', error);
+        return res.status(500).json({ error: 'Error applying for job.' });
+    }
+
+}
+
+module.exports.applyJob = async (req, res) => {
+    try {
+
+        const jobId = req.params._id;
+        const job = await Job.findOne({ _id: jobId });  // Correct usage of findOne
+        const user = req.user._id;
+        const jobSeeker = await UserModel.findById(user);
+
+        if (job.applicants.includes(user)) {
+            return res.status(400).json({ error: 'You have already applied for this job.' });
+        }
+
+        console.log(job);
+        console.log(user)
+
+        if (!user || !jobId) {
+            return res.status(400).json({ error: 'Invalid user or job ID.' });
+        }
+
+
+
+        job.applicants.push(user);
+        jobSeeker.myJob.push(jobId);
+        await job.save();
+        await jobSeeker.save();
+
+        return res.status(200).json({ message: 'Apply Job Successfully.' });
+    } catch (error) {
+        console.error('Error applying Job:', error);
+        return res.status(500).json({ error: 'Error Not Applying Job.' });
+    }
+}
+
+module.exports.applicant = async (req, res) => {
+    try {
+        const job = await Job.findById(req.params._id);
+        if (!job) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const applicant = job.applicants; // Assuming resumes is an array field in your user model
+        res.status(200).json({ applicant });
+    } catch (error) {
+        console.error('Error fetching resumes:', error);
+        res.status(500).json({ error: 'Error fetching resumes.' });
+    }
+};
+
+
+
+module.exports.getMyJob = async (req, res) => {
+    const userId = req.user._id;
+
+    try {
+        const user = await UserModel.findById(userId).populate('myJob');
+        const appliedJobs = user.myJob;
+
+        res.status(200).json({ appliedJobs });
+    } catch (error) {
+        console.error('Error fetching applied jobs:', error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+
+};
+
+module.exports.jobapplicants = async (req, res) => {
+    try {
+        // console.log(req.params)
+        
+        const job = await Job.find({}).populate('applicants')
+
+        if (!job) {
+            return res.status(404).json({ error: 'Job not found' });
+        }
+
+        res.status(200).json(job);
+    } catch (error) {
+        console.error('Error fetching job details:', error);
+        res.status(500).json({ error: 'Server Error' });
+    }
+
+}
+
 
 // // filters
 // export const productFiltersController = async (req, res) => {

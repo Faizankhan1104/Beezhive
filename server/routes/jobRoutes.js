@@ -1,6 +1,7 @@
 const express = require("express");
 const { requireSignIn, verifyToken, isEmployer, isJobOwner } = require("../middlewares/authMiddleware");
-const { createNewJob, getJobs, getSingleJob, deletejobController, updatejobController } = require('../controllers/jobCreateController');
+const { createNewJob, getJobs, getSingleJob, deletejobController, updatejobController, jobApplication, applyJob, applicant, getMyJob, jobapplicants } = require('../controllers/jobCreateController');
+const { uploadResume } = require("../controllers/authController");
 // const formidable = require("express-formidable");
 
 const router = express.Router();
@@ -11,11 +12,16 @@ router.post(
   verifyToken,
   isEmployer,
   // requireSignIn,
-//   isAdmin,
-//   formidable(),
+  //   isAdmin,
+  //   formidable(),
   createNewJob
 );
 
+router.post(
+  "/apply-job/:_id",
+  requireSignIn,
+  applyJob,
+)
 //routes
 router.put(
   "/update-job/:_id",
@@ -28,15 +34,19 @@ router.put(
 
 //get jobs
 router.get("/getjobs", getJobs);
+router.get("/job-applicant/:_id", applicant);
+
 
 // //single job
 router.get("/get-job/:slug", getSingleJob);
+router.get("/get-my-jobs/:_id", verifyToken, getMyJob);
+router.get("/job-applicants", jobapplicants);
 
 // //get photo
 // router.get("/job-photo/:pid", jobPhotoController);
 
 // //delete rjob
-router.delete("/delete-job/:_id",verifyToken, isJobOwner, deletejobController);
+router.delete("/delete-job/:_id", verifyToken, isJobOwner, deletejobController);
 
 // //filter job
 // router.post("/job-filters", jobFiltersController);

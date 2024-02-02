@@ -18,6 +18,15 @@ const jobSchema = new mongoose.Schema({
     ref: 'User', // Reference to the User model
     required: true,
   },
+  applicants: [
+    {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        unique: true,
+        sparse: true,
+      
+    },
+  ],
 }, { timestamps: true });
 
 module.exports = mongoose.model('Job', jobSchema);

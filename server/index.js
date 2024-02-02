@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const authRoutes = require("./routes/authRoutes");
 const jobRoutes = require ("./routes/jobRoutes");
+const employmentRoutes = require ("./routes/employmentRoute");
+
 
 
 
@@ -49,6 +51,7 @@ mongoose
 //routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/job", jobRoutes);
+app.use("/api/v1/employment", employmentRoutes);
 
 
 

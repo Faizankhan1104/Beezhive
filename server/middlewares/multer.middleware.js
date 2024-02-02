@@ -14,3 +14,7 @@ const storage = multer.diskStorage({
 module.exports.upload = multer({
     storage: storage
 }).single("resume");
+
+module.exports.uploadProfile = multer({
+    storage: storage
+}).single("profilePicture");
